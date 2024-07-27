@@ -44,15 +44,7 @@ pipeline {
         }
       }
     }
-    stage ("wait_for_testing") {
-       steps {
-            script {
-                print('Before Git update')
-                sleep(300)    
-            }
-            
-        }
-    }
+    
     stage('Update Deployment File') {
         environment {
             GIT_REPO_NAME = "jenkins-prod-pipeline"
@@ -74,14 +66,5 @@ pipeline {
             }
         }
     }
-    stage ("Completed_git_update") {
-      steps {
-        script {
-          print('After Git update')
-            sleep(300)    
-          }  
-        }
-    }
-
   }
 }
