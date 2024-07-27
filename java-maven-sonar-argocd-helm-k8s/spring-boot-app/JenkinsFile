@@ -44,6 +44,10 @@ pipeline {
         }
       }
     }
+    stage ("wait_for_testing")
+    {
+       sh 'sleep 300'
+    }
     stage('Update Deployment File') {
         environment {
             GIT_REPO_NAME = "jenkins-prod-pipeline"
@@ -65,5 +69,10 @@ pipeline {
             }
         }
     }
+    stage ("wait_for_testing")
+    {
+       sh 'sleep 300'
+    }
+
   }
 }
