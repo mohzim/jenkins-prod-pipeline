@@ -44,9 +44,14 @@ pipeline {
         }
       }
     }
-    stage ("wait_for_testing")
-    {
-       sh 'sleep 300'
+    stage ("wait_for_testing") {
+       steps {
+            script {
+                print('Before Git update')
+                sleep(300)    
+            }
+            
+        }
     }
     stage('Update Deployment File') {
         environment {
@@ -69,9 +74,13 @@ pipeline {
             }
         }
     }
-    stage ("wait_for_testing")
-    {
-       sh 'sleep 300'
+    stage ("Completed_git_update") {
+      steps {
+        script {
+          print('After Git update')
+            sleep(300)    
+          }  
+        }
     }
 
   }
