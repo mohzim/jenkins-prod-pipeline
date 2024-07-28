@@ -80,11 +80,10 @@ Login into Jenkins:
 ## Test the build through Docker
 
 ## Jenkins Pipeline
-
 ## Attribution
 This repository is adapted from [Jenkins-Zero-To-Hero](https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero).
 
 ## To Do List
 1. Convert AWS Jenkins setup into Terraform Script. 
-2. Create shell script for Jenkins installation and setup. 
+2. Create shell script for Jenkins installation and setup. Use command to add plugins through shell script (java -jar jenkins-cli.jar install-plugin <PLUGIN_NAME>).
 3. Add steps to configure SonarQube Integration. Generate token in SonarQube and add as secret in Jenkins
