@@ -49,6 +49,17 @@ pipeline {
             }
         }
       }
+    } 
+    stage('Check Changes') { //added stage to list files modified that triggered this pipeline 
+      steps {
+        script {
+          // Fetch changes using Git and store them in a temporary file
+          sh "git config user.email 'mohzim@gmail.com'"
+          sh "git config user.name 'mohzim'"
+          sh "git fetch origin"
+          sh "git diff --name-only HEAD^ HEAD > changed_files.txt"
+        }
+      }
     }
     
     stage('Update Deployment File') {
