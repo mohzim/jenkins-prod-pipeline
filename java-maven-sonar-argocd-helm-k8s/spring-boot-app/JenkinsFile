@@ -20,7 +20,7 @@ pipeline {
     }
     stage('Static Code Analysis') {
       environment {
-        SONAR_URL = "http://65.0.106.231:9000"
+        SONAR_URL = "http://3.109.206.210:9000"
       }
       steps {
         withCredentials([string(credentialsId: 'SonarQubeToken', variable: 'SONAR_AUTH_TOKEN')]) {
@@ -52,15 +52,21 @@ pipeline {
     }
     
     stage('Update Deployment File') {
+        when {
+          expression {
+            def changedFiles = readFile('changed_files.txt').trim()
+            !changedFiles.split("\n").any { it.startsWith("java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/") }
+            // check if the changes made are to the dir where deployment.yaml is present then skip
+            // Execute this stage only if changes are detected outside the 'kubernetes' directory
+          }
+        }
         environment {
             GIT_REPO_NAME = "jenkins-prod-pipeline"
             GIT_USER_NAME = "mohzim"
         }
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-                sh 'echo passed'
                 sh '''
-                  whoami
                   git config user.email "mohzim@gmail.com"
                   git config user.name "mohzim"
                   BUILD_NUMBER=${BUILD_NUMBER}
